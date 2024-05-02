@@ -22,6 +22,8 @@
 import os
 import io
 import random
+import logging
+log = logging.getLogger(__name__)
 
 import numpy as np
 
@@ -390,7 +392,9 @@ class NpImage():
 		elif self.IFACE == 'IMGIO':
 			if imgFormat == 'jpg' and self.hasAlpha:
 				self.removeAlpha()
+			log.debug("Writing image of size " + str(len(self.data[0])) + "x" + str(len(self.data[0])) + " to " + path)
 			imageio.imwrite(path, self.data)#float32 support ok
+			log.debug("Successfully wrote image of size " + str(len(self.data[0])) + "x" + str(len(self.data[0])) + " to " + path)
 		elif self.IFACE == 'GDAL':
 			if imgFormat == 'png':
 				driver = 'PNG'
