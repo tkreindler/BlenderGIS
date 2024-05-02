@@ -394,7 +394,7 @@ class NpImage():
 				self.removeAlpha()
 			log.debug("Writing image of size " + str(len(self.data[0])) + "x" + str(len(self.data[0])) + " to " + path)
 			imageio.imwrite(path, self.data)#float32 support ok
-			log.debug("Successfully wrote image of size " + str(len(self.data[0])) + "x" + str(len(self.data[0])) + " to " + path)
+			log.debug("Successfully wrote image of size " + str(len(self.data[0])) + "x" + str(len(self.data)) + " to " + path)
 		elif self.IFACE == 'GDAL':
 			if imgFormat == 'png':
 				driver = 'PNG'
