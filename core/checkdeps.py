@@ -1,3 +1,6 @@
+from os import path
+import sys
+import subprocess
 import logging
 log = logging.getLogger(__name__)
 
@@ -34,13 +37,27 @@ else:
 	log.debug('Pillow available')
 
 
-#Imageio freeimage plugin
+#Imageio
+
 try:
-	from .lib import imageio
-	imageio.plugins._freeimage.get_freeimage_lib() #try to download freeimage lib
+	python = path.abspath(sys.executable)
+	log.info("Installing 'imageio' package.")
+	# Verify 'pip' package manager is installed.
+	try:
+		subprocess.call([python, "-m", "ensurepip"])
+	except Exception as e:
+		log.error("Failed to verify 'pip' package manager installation.")
+		raise e
+
+	# Install 'imageio' package.
+	try:
+		subprocess.call([python, "-m", "pip", "install", "imageio"])
+	except Exception:
+		log.error("Failed to install 'imageio' package.")
+
 except Exception as e:
-	log.error("Cannot install ImageIO's Freeimage plugin", exc_info=True)
+	log.error("Cannot install ImageIO", exc_info=True)
 	HAS_IMGIO = False
 else:
 	HAS_IMGIO = True
-	log.debug('ImageIO Freeimage plugin available')
+	log.debug('ImageIO plugin available')

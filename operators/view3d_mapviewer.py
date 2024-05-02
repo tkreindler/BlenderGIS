@@ -22,6 +22,7 @@ import math
 import os
 import threading
 import logging
+import sys
 log = logging.getLogger(__name__)
 
 #bpy imports
@@ -465,6 +466,7 @@ class VIEW3D_OT_map_start(Operator):
 
 
 	def invoke(self, context, event):
+		exe = sys.executable
 
 		if not HAS_PIL and not HAS_GDAL and not HAS_IMGIO:
 			self.report({'ERROR'}, "No imaging library available. ImageIO module was not correctly installed.")
